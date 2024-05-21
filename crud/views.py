@@ -1,7 +1,8 @@
 from django.shortcuts import render
-
-# Create your views here.
+from .forms import ListaForm
+from .models import Lista
 
 
 def index(request):
-    return render(request, 'index.html')
+    lista = Lista.objects.filter(usuario=request.user)
+    return render(request, 'index.html', {'lista': lista})
