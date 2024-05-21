@@ -26,3 +26,11 @@ def status(request, lista_id):
         return JsonResponse({'success': True, 'status': lista.status})
     except Lista.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'LISTA not found.'})
+
+def deletar(request, lista_id):
+    try:
+        lista = Lista.objects.get(id=lista_id, user=request.user)
+        lista.delete()
+        return JsonResponse({'success': True})
+    except Lista.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'object not found.'})

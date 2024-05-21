@@ -16,6 +16,7 @@
                 {{ lista.titulo }}
                 <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
                 <span class="checkmark"></span>
+                <button class="delete-todo-btn" data-todo-id="{{ lista.id }}">&#x2715;</button>
             </label>
         </h3>
 
@@ -82,6 +83,32 @@
             }
           })
           .catch(error => console.error('Error:', error));
+        });
+      });
+    
+    {% comment %} script para apagar uma tarefa {% endcomment %}
+
+    document.querySelectorAll('.delete-todo-btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+          if (confirm('Tem certeza que deseja apagar ?')) {
+            let todoId = this.getAttribute('data-todo-id');
+            fetch(`/todos/delete/${todoId}/`, {
+              method: 'POST',
+              headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+              },
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                document.querySelector(`li[data-todo-id="${todoId}"]`).remove();
+                location.reload(); // Recarrega a página após a exclusão
+              } else {
+                console.error(data.error);
+              }
+            })
+            .catch(error => console.error('Error:', error));
+          }
         });
       });
 

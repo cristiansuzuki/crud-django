@@ -108,7 +108,7 @@
   }
 
   /* Estilo do "checkmark" */
-  .custom-checkbox .checkmark:after {
+    .custom-checkbox .checkmark:after {
     left: 9px;
     top: 5px;
     width: 5px;
@@ -116,4 +116,25 @@
     border: solid white;
     border-width: 0 3px 3px 0;
     transform: rotate(45deg);
+  }
+
+
+  /* Estilo para o botão de exclusão */
+  .delete-todo-btn {
+    background: none;
+    border: none;
+    color: red;
+    margin-left: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    display: none; /* Oculta o botão por padrão */
+  }
+
+  .delete-todo-btn:hover {
+    color: darkred;
+  }
+
+  /* Mostra o botão de exclusão apenas quando o item da lista for "hovered" */
+  .custom-checkbox:hover .delete-todo-btn {
+    display: contents;
   }
