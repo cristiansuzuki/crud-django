@@ -8,13 +8,16 @@
   <body class="body">
 
     <div class="container">
-        <h1>LISTA</h1> <button type="button" id="addLista">Adicionar nova tarefa</button>
+        <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
         {% for lista in lista %}
 
-        <h1>
-            {{ lista.titulo }} 
-            <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
-        </h1>
+        <h3>
+            <label class="custom-checkbox">
+                {{ lista.titulo }}
+                <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
+                <span class="checkmark"></span>
+            </label>
+        </h3>
 
         {% endfor %}
     </div>
@@ -25,7 +28,7 @@
         <form id="ListaForm">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Save</button>
+            <button type="submit">Salvar</button>
         </form>
         </div>
     </div>

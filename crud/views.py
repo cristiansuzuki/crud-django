@@ -17,6 +17,7 @@ def index(request):
         form = ListaForm()
     return render(request, 'index.html', {'lista': lista, 'form': form})
 
+# view para alterar status da lista
 def status(request, lista_id):
     try:
         lista = Lista.objects.get(id=lista_id, user=request.user)
