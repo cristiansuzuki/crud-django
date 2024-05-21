@@ -12,7 +12,8 @@
         {% for lista in lista %}
 
         <h1>
-            {{ lista.titulo }} {{ lista.status }}
+            {{ lista.titulo }} 
+            <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
         </h1>
 
         {% endfor %}
@@ -31,6 +32,7 @@
   </body>
 
 
+  {% comment %} Script para abrir modal e recarregar página se o Formulário tiver sido salvo com sucesso {% endcomment %}
   <script>
     document.getElementById('addLista').addEventListener('click', function() {
       document.getElementById('ListaModal').style.display = 'flex';
@@ -43,21 +45,42 @@
       fetch("{% url 'index' %}", {
         method: 'POST',
         headers: {
-          'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+          'X-CSRFToken': formData.get('csrfmiddlewaretoken').value
         },
         body: formData
       })
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          // Close the modal and reload the page or update the list dynamically
-          document.getElementById('ListaModal').style.display = 'none';
-          location.reload(); // or update the list without reloading
-        } else {
-          // Handle errors
+          document.getElementById('ListaModal').style.display = 'flex';
+          location.reload();
           console.log(data.errors);
         }
-      });
+      })
+      .catch(error => console.log('Error:', error));
     });
+
+
+    {% comment %} Script para atualizar Status da lista {% endcomment %}
+    document.querySelectorAll('.todo-complete-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          let todoId = this.getAttribute('data-todo-id');
+          fetch(`/todos/toggle-complete/${todoId}/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (!data.success) {
+              console.error(data.error);
+              this.checked = !this.checked; // Reverter a mudança se houver um erro
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+
   </script>
 </html>
