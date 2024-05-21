@@ -1,3 +1,63 @@
-<html>
-    <h1>teste</h1>
+{% load static %}
+<html lang="pt-br">
+  <head>
+    <title>LISTA</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+  </head>
+  <body class="body">
+
+    <div class="container">
+        <h1>LISTA</h1> <button type="button" id="addLista">Adicionar nova tarefa</button>
+        {% for lista in lista %}
+
+        <h1>
+            {{ lista.titulo }} {{ lista.status }}
+        </h1>
+
+        {% endfor %}
+    </div>
+
+    <div id="ListaModal" style="display: none;">
+        <div class="modal-content">
+        <h4>Nova Lista</h4>
+        <form id="ListaForm">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Save</button>
+        </form>
+        </div>
+    </div>
+  </body>
+
+
+  <script>
+    document.getElementById('addLista').addEventListener('click', function() {
+      document.getElementById('ListaModal').style.display = 'flex';
+    });
+  
+    document.getElementById('ListaForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      let formData = new FormData(this);
+      fetch("{% url 'index' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': formData.get('csrfmiddlewaretoken')
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Close the modal and reload the page or update the list dynamically
+          document.getElementById('ListaModal').style.display = 'none';
+          location.reload(); // or update the list without reloading
+        } else {
+          // Handle errors
+          console.log(data.errors);
+        }
+      });
+    });
+  </script>
 </html>
