@@ -11,7 +11,7 @@
         <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
         {% for lista in lista %}
 
-        <h3>
+        <h3 class="listas">
             <label class="custom-checkbox">
                 {{ lista.titulo }}
                 <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
@@ -88,9 +88,9 @@
     
     {% comment %} script para apagar uma tarefa {% endcomment %}
 
-    document.querySelectorAll('.delete-todo-btn').forEach(function(button) {
+      document.querySelectorAll('.delete-todo-btn').forEach(function(button) {
         button.addEventListener('click', function() {
-          if (confirm('Tem certeza que deseja apagar ?')) {
+          if (confirm('Are you sure you want to delete this todo?')) {
             let todoId = this.getAttribute('data-todo-id');
             fetch(`/todos/delete/${todoId}/`, {
               method: 'POST',
@@ -100,9 +100,13 @@
             })
             .then(response => response.json())
             .then(data => {
+              console.log(data);
               if (data.success) {
-                document.querySelector(`li[data-todo-id="${todoId}"]`).remove();
+                let todoItem = document.querySelector(`li[data-todo-id="${todoId}"]`);
                 location.reload(); // Recarrega a página após a exclusão
+                if (todoItem) {
+                  todoItem.remove();
+                }
               } else {
                 console.error(data.error);
               }
@@ -110,7 +114,7 @@
             .catch(error => console.error('Error:', error));
           }
         });
-      });
+      });  
 
   </script>
 </html>
