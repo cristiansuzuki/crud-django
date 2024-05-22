@@ -25,6 +25,7 @@
 
     <div id="ListaModal" style="display: none;">
         <div class="modal-content">
+        <span class="closeBtn">&times;</span>
         <h4>Nova Lista</h4>
         <form id="ListaForm">
             {% csrf_token %}
@@ -115,6 +116,21 @@
           }
         });
       });  
+
+      document.getElementById('addLista').addEventListener('click', function() {
+        document.getElementById('ListaModal').style.display = 'flex';
+    });
+    
+    document.querySelector('.closeBtn').addEventListener('click', function() {
+        document.getElementById('ListaModal').style.display = 'none';
+    });
+    
+    window.addEventListener('click', function(event) {
+        if (event.target == document.getElementById('ListaModal')) {
+            document.getElementById('ListaModal').style.display = 'none';
+        }
+    });
+
 
   </script>
 </html>
