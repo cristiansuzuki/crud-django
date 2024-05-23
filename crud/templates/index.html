@@ -7,6 +7,10 @@
 
     <div class="container">
         <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
+        <form method="get" action="">
+          {{ form_pesquisa.as_p }}
+          <button type="submit">Search</button>
+        </form>
         {% for lista in lista %}
 
         <h3 class="listas">
@@ -17,6 +21,8 @@
                 <button class="delete-todo-btn" data-todo-id="{{ lista.id }}">&#x2715;</button>
             </label>
         </h3>
+        {% empty %}
+        <li>Não foram encontrados itens relacionados a sua pesquisa.</li>
 
         {% endfor %}
     </div>

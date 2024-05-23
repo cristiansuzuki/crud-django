@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .forms import ListaForm
+from .forms import ListaForm, PesquisaForm
 from .models import Lista
 from django.http import JsonResponse
 
@@ -15,7 +15,17 @@ def index(request):
             return JsonResponse({'success': True})
     else:
         form = ListaForm()
-    return render(request, 'index.html', {'lista': lista, 'form': form})
+
+    form_pesquisa = PesquisaForm(request.GET or None)
+    query = request.GET.get('query')
+    if query:
+        lista = Lista.objects.filter(user=request.user, titulo__icontains=query)
+        print(f"Query: {query}")
+        print(f"Filtered items: {lista}")
+    else:
+        lista = Lista.objects.filter(user=request.user)
+
+    return render(request, 'index.html', {'lista': lista, 'form': form, 'form_pesquisa': form_pesquisa})
 
 # view para alterar status da lista
 def status(request, lista_id):
