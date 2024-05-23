@@ -7,4 +7,4 @@ class ListaForm(forms.ModelForm):
         fields = ['titulo', 'status']
 
 class PesquisaForm(forms.Form):
-    query = forms.CharField(label='Pesquise uma tarefa...', max_length=80, required=False)
+    query = forms.CharField(label='', max_length=80, required=False, widget=forms.TextInput(attrs={'placeholder': 'Pesquisar...'}))

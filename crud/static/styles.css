@@ -213,3 +213,31 @@
       font-size: 24px;
   }
 }
+
+
+input[type="text"] {
+  padding: 10px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+/* Estilo para o botão de pesquisa */
+button[type="submit"] {
+  padding: 10px 15px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.form-pesquisa {
+  display: flex;
+  align-items: center;
+}
