@@ -7,12 +7,12 @@
 
     <div class="container">
         <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
-        <form method="get" action="" class="form-pesquisa">
+        <form method="get" action="" class="form-pesquisa" id="form-pesquisa">
           {{ form_pesquisa.as_p }} <button type="submit">Search</button>
         </form>
         {% for lista in lista %}
-
-        <h3 class="listas">
+      <div id="task-list">
+        <h3 class="listas" >
             <label class="custom-checkbox">
                 {{ lista.titulo }}
                 <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
@@ -22,7 +22,7 @@
         </h3>
         {% empty %}
         <li>Não foram encontrados itens relacionados a sua pesquisa.</li>
-
+      </div>
         {% endfor %}
     </div>
 

@@ -3,6 +3,7 @@
     background: #191919;
     display: flex;
     justify-content: center;
+    overflow-y: scroll
 }
 
 .titulo {
@@ -48,10 +49,10 @@
     font-size: 20px;
     background-color: #778da9;
     border-color: #778da9;
-    color: white; /* Cor do texto */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Bordas arredondadas */
-    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
+    color: white;
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
   }
 
   .custom-checkbox input[type="checkbox"] {
@@ -62,7 +63,7 @@
     width: 0;
   }
 
-  /* Cria um novo checkbox estilizado */
+/* CHECKBOX */
   .custom-checkbox {
     display: flex;
     align-items: center;
@@ -85,29 +86,29 @@
     border-radius: 4px;
   }
 
-  /* Ao passar o mouse sobre o checkbox */
+
   .custom-checkbox:hover input ~ .checkmark {
     background-color: #ccc;
   }
 
-  /* Quando o checkbox é marcado */
+
   .custom-checkbox input:checked ~ .checkmark {
     background-color: #2196F3;
   }
 
-  /* Cria o "checkmark" */
+ /* CHECKMARK */
   .custom-checkbox .checkmark:after {
     content: "";
     position: absolute;
     display: none;
   }
 
-  /* Mostra o "checkmark" quando o checkbox é marcado */
+
   .custom-checkbox input:checked ~ .checkmark:after {
     display: block;
   }
 
-  /* Estilo do "checkmark" */
+
     .custom-checkbox .checkmark:after {
     left: 9px;
     top: 5px;
@@ -119,7 +120,7 @@
   }
 
 
-  /* Estilo para o botão de exclusão */
+
   .delete-todo-btn {
     background: none;
     border: none;
@@ -127,14 +128,14 @@
     margin-left: 10px;
     font-size: 15px;
     cursor: pointer;
-    display: none; /* Oculta o botão por padrão */
+    display: none;
   }
 
   .delete-todo-btn:hover {
     color: darkred;
   }
 
-  /* Mostra o botão de exclusão apenas quando o item da lista for "hovered" */
+
   .custom-checkbox:hover .delete-todo-btn {
     display: contents;
   }
@@ -149,7 +150,7 @@
   font-weight: 100;
   }
 
-  /* Close Button */
+
 .closeBtn {
   color: #aaa;
   float: right;
@@ -164,7 +165,7 @@
   cursor: pointer;
 }
 
-/* Media Queries para responsividade */
+/* AJUSTE PARA VISUALIZACAO MOBILE !!! */
 @media (max-width: 600px) {
   .container {
       width: 100%;
@@ -214,16 +215,16 @@
   }
 }
 
-
 input[type="text"] {
   padding: 10px;
   width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-right: 10px;
+  background: #778da9;
 }
 
-/* Estilo para o botão de pesquisa */
+
 button[type="submit"] {
   padding: 10px 15px;
   background-color: #007bff;
@@ -231,13 +232,34 @@ button[type="submit"] {
   color: white;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+button[type="submit"]:active {
+  background-color: #003f7f;
+  transform: scale(0.95);
+}
+
 .form-pesquisa {
   display: flex;
   align-items: center;
+}
+
+/* TRANSICOES PARA QUANDO PESQUISAR UM ITEM !!!! */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
 }

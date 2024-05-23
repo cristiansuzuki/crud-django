@@ -104,6 +104,37 @@
     });
 
 
+    document.addEventListener('DOMContentLoaded', function() {
+      const taskList = document.getElementById('task-list');
+  
+      // Adiciona a classe de entrada aos itens da lista
+      Array.from(taskList.children).forEach(item => {
+          item.classList.add('fade-enter');
+          // Usar setTimeout para garantir que a classe seja aplicada no próximo ciclo de renderização
+          setTimeout(() => {
+              item.classList.add('fade-enter-active');
+          }, 10); // Pequeno atraso para garantir que a classe 'fade-enter' seja aplicada
+      });
+  
+      // Evento para o formulário de pesquisa
+      document.getElementById('form-pesquisa').addEventListener('submit', function(event) {
+          event.preventDefault();
+          const form = event.target;
+  
+          // Adiciona a classe de saída aos itens atuais
+          Array.from(taskList.children).forEach(item => {
+              item.classList.remove('fade-enter', 'fade-enter-active');
+              item.classList.add('fade-exit-active');
+          });
+  
+          // Aguarda a transição de saída antes de enviar o formulário
+          setTimeout(() => {
+              form.submit();
+          }, 500); // Duração da transição em milissegundos
+      });
+  });
+
+
   </script>
 </html>
   

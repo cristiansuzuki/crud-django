@@ -16,12 +16,12 @@ def index(request):
     else:
         form = ListaForm()
 
+
+# lógica para filtrar pelo campo de pesquisa
     form_pesquisa = PesquisaForm(request.GET or None)
     query = request.GET.get('query')
     if query:
         lista = Lista.objects.filter(user=request.user, titulo__icontains=query)
-        print(f"Query: {query}")
-        print(f"Filtered items: {lista}")
     else:
         lista = Lista.objects.filter(user=request.user)
 
@@ -36,7 +36,8 @@ def status(request, lista_id):
         return JsonResponse({'success': True, 'status': lista.status})
     except Lista.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'LISTA not found.'})
-
+    
+# view para deletar um item da lista
 def deletar(request, lista_id):
     try:
         lista = Lista.objects.get(id=lista_id, user=request.user)
