@@ -6,10 +6,12 @@
   <body class="body">
 
     <div class="container">
+      <div>
         <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
         <form method="get" action="" class="form-pesquisa" id="form-pesquisa">
-          {{ form_pesquisa.as_p }} <button type="submit">Search</button>
+          {{ form_pesquisa.as_p }} <button type="submit"><i class="fas fa-search"></i></button>
         </form>
+      </div>
         {% for lista in lista %}
       <div id="task-list">
         <h3 class="listas" >
