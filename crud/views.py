@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ListaForm, PesquisaForm
 from .models import Lista
 from django.http import JsonResponse
 
-# view para visualizar a lista (READ)
+# view para visualizar a lista
 def index(request):
     lista = Lista.objects.filter(user=request.user)
     form = ListaForm(request.POST)
@@ -45,3 +45,16 @@ def deletar(request, lista_id):
         return JsonResponse({'success': True})
     except Lista.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'object not found.'})
+    
+# view para editar um item da lista
+def editar(request, lista_id):
+    lista = get_object_or_404(Lista, id=lista_id, user=request.user)
+    if request.method == 'POST':
+        form = ListaForm(request.POST, instance=lista)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        return JsonResponse({'titulo': lista.titulo, 'status': lista.status})

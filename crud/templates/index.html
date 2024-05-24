@@ -19,7 +19,10 @@
                 {{ lista.titulo }}
                 <input type="checkbox" class="todo-complete-checkbox" data-todo-id="{{ lista.id }}" {% if lista.status %}checked{% endif %}>
                 <span class="checkmark"></span>
-                <button class="delete-todo-btn" data-todo-id="{{ lista.id }}">&#x2715;</button>
+                <div class="task-buttons">
+                  <button class="delete-todo-btn" data-todo-id="{{ lista.id }}">&#x2715;</button>
+                  <button class="edit-todo-btn" data-todo-id="{{ lista.id }}">✏️</button>
+                </div>
             </label>
         </h3>
         {% empty %}
@@ -29,16 +32,16 @@
     </div>
 
     <div id="ListaModal" style="display: none;">
-        <div class="modal-content">
-        <span class="closeBtn">&times;</span>
-        <h4>Nova Lista</h4>
-        <form id="ListaForm">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Salvar</button>
-        </form>
-        </div>
-    </div>
+      <div class="modal-content">
+          <span class="closeBtn">&times;</span>
+          <h4 id="modalTitle">Nova Lista</h4>
+          <form id="ListaForm" data-todo-id="">
+              {% csrf_token %}
+              {{ form.as_p }}
+              <button type="submit">Salvar</button>
+          </form>
+      </div>
+  </div>
   </body>
 
 {% endblock %}
