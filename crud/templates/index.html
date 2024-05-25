@@ -5,7 +5,26 @@
 
   <body class="body">
 
+    
+    <div class="side-platform">
+      <div class="user-icon">
+        <!-- Espaço para a foto do usuário -->
+        <img src="" alt="User Photo">
+      </div>
+      <div class="logout-icon">
+        <!-- Botão de logout -->
+        <form method="post" action="">
+          {% csrf_token %}
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+
+
+
     <div class="container">
+
+
       <div>
         <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
         <form method="get" action="" class="form-pesquisa" id="form-pesquisa">
