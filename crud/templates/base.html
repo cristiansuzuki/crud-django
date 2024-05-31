@@ -9,8 +9,6 @@
 {% block conteiner %}
 {% endblock %}
 
-
-  {% comment %} Script para abrir modal e recarregar página se o Formulário tiver sido salvo com sucesso {% endcomment %}
   <script>
     // Função para abrir o modal e definir o título e a ação do formulário
     function openModal(isEdit, data = {}) {
@@ -47,6 +45,28 @@
         });
     });
 
+     {% comment %} Script para atualizar Status da lista {% endcomment %}
+     document.querySelectorAll('.todo-complete-checkbox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          let todoId = this.getAttribute('data-todo-id');
+          fetch(`/todos/toggle-complete/${todoId}/`, {
+            method: 'POST',
+            headers: {
+              'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (!data.success) {
+              console.error(data.error);
+              this.checked = !this.checked; // Reverter a mudança se houver um erro
+            }
+          })
+          .catch(error => console.error('Error:', error));
+        });
+      });
+
+    // Script para editar lista
     document.getElementById('ListaForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -72,8 +92,6 @@
         })
         .catch(error => console.error('Error:', error));
     });
-
-    // Restante dos scripts...
 
     document.querySelector('.closeBtn').addEventListener('click', function() {
         document.getElementById('ListaModal').style.display = 'none';
@@ -109,11 +127,10 @@
     });
 
 
-     {% comment %} script para apagar uma tarefa {% endcomment %}
-
+     //script para apagar uma tarefa 
      document.querySelectorAll('.delete-todo-btn').forEach(function(button) {
       button.addEventListener('click', function() {
-        if (confirm('Are you sure you want to delete this todo?')) {
+        if (confirm('Tem certeza que deseja apagar essa lista ?')) {
           let todoId = this.getAttribute('data-todo-id');
           fetch(`/todos/delete/${todoId}/`, {
             method: 'POST',
