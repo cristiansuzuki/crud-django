@@ -4,8 +4,6 @@
 <html lang="pt-br">
 
   <body class="body">
-
-    
     <div class="side-platform">
       <div class="user-icon">
         <!-- Espaço para a foto do usuário -->
@@ -13,20 +11,15 @@
       </div>
       <div class="logout-icon">
         <!-- Botão de logout -->
-        <form method="post" action="">
+        <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
           <button type="submit">Logout</button>
         </form>
       </div>
     </div>
-
-
-
     <div class="container">
-
-
       <div>
-        <h1 class="titulo">Lista</h1> <button class="botao-add" type="button" id="addLista">+</button>
+        <h1 class="titulo">Lista de tarefas</h1> <button class="botao-add" type="button" id="addLista">+</button>
         <form method="get" action="" class="form-pesquisa" id="form-pesquisa">
           {{ form_pesquisa.as_p }} <button type="submit"><i class="fas fa-search"></i></button>
         </form>

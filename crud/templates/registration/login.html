@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} Lista {% endblock %}
+{% block conteiner %}
+
+<body class="body-login">
+
+<form class="form" method="POST">{% csrf_token %}
+
+
+    <div class="login-container">
+        <h1>Login</h1>
+        {% if form.errors %}
+            <div class="error">
+                <p>Usuário ou senha incorretos. Tente novamente.</p>
+            </div>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Usuário" required>
+            <input type="password" name="password" placeholder="Senha" required>
+            <button type="">Entrar</button>
+        </form>
+    </div>
+
+
+</form>
+
+</body>
+
+{% endblock %}

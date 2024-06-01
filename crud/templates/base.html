@@ -45,7 +45,7 @@
         });
     });
 
-     {% comment %} Script para atualizar Status da lista {% endcomment %}
+     // Script para atualizar Status da lista
      document.querySelectorAll('.todo-complete-checkbox').forEach(function(checkbox) {
         checkbox.addEventListener('change', function() {
           let todoId = this.getAttribute('data-todo-id');
