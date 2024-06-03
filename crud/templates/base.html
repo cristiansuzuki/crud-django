@@ -155,6 +155,16 @@
         }
       });
     });  
+
+    // Confirmação do Logout
+    function confirmLogout(event) {
+      event.preventDefault(); // Evita o envio imediato do formulário
+      var userConfirmed = confirm("Você tem certeza que deseja sair?");
+      if (userConfirmed) {
+          // Envia o formulário
+          event.target.closest('form').submit();
+      }
+  }
 </script>
 </html>
   

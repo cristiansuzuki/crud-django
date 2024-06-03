@@ -13,7 +13,7 @@
         <!-- Botão de logout -->
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
-          <button type="submit">Logout</button>
+          <button type="submit" onclick="confirmLogout(event)">Logout</button>
         </form>
       </div>
     </div>
